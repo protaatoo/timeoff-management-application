@@ -6,9 +6,27 @@ var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var moment       = require('moment');
+var https = require('https');
+var fs = require('fs');
 const createSessionMiddleware = require('./lib/middleware/withSession');
 
 var app = express();
+
+
+const sslOptions = {
+  key: fs.readFileSync(path.join(__dirname, 'server.key')),
+  cert: fs.readFileSync(path.join(__dirname, 'server.cert'))
+};
+
+app.use((req, res, next) => {
+  if (!req.secure && req.hostname === 'localhost') {
+    return res.redirect(`https://${req.headers.host}${req.url}`);
+  }
+  next();
+});
+https.createServer(sslOptions, app).listen(3000, () => {
+  console.log('HTTPS Server running on https://localhost:3000');
+});
 
 // View engine setup
 var handlebars = require('express-handlebars')
@@ -26,10 +44,10 @@ app.set('view engine', '.hbs');
 app.set('db_model', require('./lib/model/db'));
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

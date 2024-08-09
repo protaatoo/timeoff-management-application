@@ -270,12 +270,46 @@
   <div class="col-md-5 setting-general-2nd-column">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Bank Holidays
+        SMTP Configuration
       </div>
       <div class="panel-body">
-        <div class="row">
-          <div class="col-md-12 tst-no-bank-holidays">Bank holidays could be found <a href="/settings/bankholidays/">here</a></div>
-        </div>
+        <form class="form-horizontal" method="POST" action="/settings/general/" id="smtp_config_form">
+          <div class="form-group">
+            <label for="host" class="col-md-4 control-label">SMTP Host</label>
+            <div class="col-md-8">
+              <input type="text" class="form-control" id="host" name="host" value="{{config.email_transporter.host}}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="port" class="col-md-4 control-label">SMTP Port</label>
+            <div class="col-md-8">
+              <input type="number" class="form-control" id="port" name="port" value="{{config.email_transporter.port}}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="user" class="col-md-4 control-label">SMTP User</label>
+            <div class="col-md-8">
+              <input type="text" class="form-control" id="user" name="user" value="{{config.email_transporter.auth.user}}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pass" class="col-md-4 control-label">SMTP Password</label>
+            <div class="col-md-8">
+              <input type="password" class="form-control" id="pass" name="pass" value="{{config.email_transporter.auth.pass}}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sender_email" class="col-md-4 control-label">Sender Email</label>
+            <div class="col-md-8">
+              <input type="email" class="form-control" id="sender_email" name="sender_email" value="{{config.application_sender_email}}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+              <button type="submit" class="btn btn-success pull-right single-click">Update SMTP Settings</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>

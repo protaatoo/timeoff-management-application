@@ -1,6 +1,6 @@
 {
   "allow_create_new_accounts" : true,
-  "send_emails"              : false,
+  "send_emails"              : true,
   "application_sender_email" : "email@test.com",
   "email_transporter" : {
     "host" : "localhost",
@@ -11,7 +11,7 @@
     }
   },
   "sessionStore": {
-    "useRedis": false,
+    "useRedis": true,
     "redisConnectionConfiguration": {
       "host": "localhost",
       "port": 6379
